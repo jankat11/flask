@@ -39,11 +39,14 @@
 
     <!-- reacta ait script -->
     <script type="text/babel">
-      const Link = ReactRouterDOM.Link,
-        Route = ReactRouterDOM.Route,
-        BrowserRouter = ReactRouterDOM.BrowserRouter;
+      const Link = ReactRouterDOM.Link
+      const Route = ReactRouterDOM.Route
+      const BrowserRouter = ReactRouterDOM.BrowserRouter;
 
       const App = (props) => (
+
+        /* ilk div tagı tüm sayfalarda duruma göre ortak component göstermek için. mesela burada navbar olarak iş yapıyor. */
+        /* altındaki üç adet route tagı ise reactta navigasyonları tanımlamak için. yeni bir route yaratılacaksa burada tanımlanmalı. */
         <BrowserRouter>
           <div style={{ display: "flex", gap: "2rem" }}>
             <div>
@@ -73,6 +76,8 @@
         </BrowserRouter>
       );
 
+
+      /* bunlar da sayfa componentleri. burada yaratılan component yukarıdaki route'da render fonksiyonuna eklenmeli */
       const HomePage = (props) => (
         <div>
           <h1>HOME PAGE</h1>
@@ -83,14 +88,14 @@
           <li>
             <Link to="/dashboard">TO DASHBOARD PAGE</Link>
           </li>
-          <p>jinja value is: {jinjaValue}</p>
+          <p style={{color: blue}}>jinja value is: {jinjaValue}</p>
         </div>
       );
 
       const ProfilePage = (props) => (
         <div>
           <h1>PROFILE PAGE</h1>
-          <p>jinja value is: {jinjaValue}</p>
+          <p style={{color: blue}}>jinja value is: {jinjaValue}</p>
           <p>hello im cankat </p>
           <Link to="/dashboard">look to dashboard</Link>
         </div>
@@ -100,7 +105,7 @@
         <div>
           <h1>DASHBOARD PAGE</h1>
           <p>those are my stats</p>
-          <p>jinja value is: {jinjaValue}</p>
+          <p style={{color: blue}}>jinja value is: {jinjaValue}</p>
           <Link to="/profile">also visit my profile</Link>
         </div>
       );
@@ -112,4 +117,3 @@
     {% endraw %} <!-- bu satır jinjaya ait -->
   </body>
 </html>
-
