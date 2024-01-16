@@ -1,0 +1,88 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>deneme</title>
+
+    <!-- REACT VE ROUTER İÇİN 4 ADET SCRIPT TAGLERİ -->
+
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/babel-standalone@6/babel.js"
+    ></script>
+    <script src="https://unpkg.com/react-router-dom@5.0.0/umd/react-router-dom.min.js"></script>
+
+    <!-- ---------------- -->
+  </head>
+  <body>
+    <!-- herşey bu rootta renderlenecek. bunun içi boş kalmalı -->
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const Link = ReactRouterDOM.Link,
+        Route = ReactRouterDOM.Route;
+
+      const App = (props) => (
+        /* ilk div olan kısım dilersen tüm sayfalarda gözükebilecek ortak header kısmı */
+
+        <ReactRouterDOM.HashRouter>
+          <div style={{ display: "flex", gap: "2rem" }}>
+            <div>
+              <Link to="/">HOME PAGE</Link>
+            </div>
+            <div>
+              <Link to="/profile">PROFILE PAGE</Link>
+            </div>
+            <div>
+              <Link to="/dashboard">DASHBOARD PAGE</Link>
+            </div>
+          </div>
+
+          <Route path="/" exact component={HomePage} />
+          <Route path="/profile" component={ProfilePage} />
+          <Route path="/dashboard" component={DashboardPage} />
+        </ReactRouterDOM.HashRouter>
+      );
+
+      /* sayfa componentleri bunlar. sayfa html içeriği buradaki fonksiyonun returnu şeklinde yazılacak. çok sayıda element varsa hepsi tek bir parent element içinde olmalı yoksa hata verir.*/
+      const HomePage = (props) => (
+        <div>
+          <h1>HOME PAGE</h1>
+          <li>
+            <Link to="/profile">TO PROFILE PAGE</Link>
+          </li>
+          <li>
+            <Link to="/dashboard">TO DASHBOARD PAGE</Link>
+          </li>
+        </div>
+      );
+
+      const ProfilePage = (props) => (
+        <div>
+          <h1>PROFILE PAGE</h1>
+          <p>hello im cankat </p>
+          <Link to="/dashboard">look to dashboard</Link>
+        </div>
+      );
+
+      const DashboardPage = (props) => (
+        <div>
+          <h1>DASHBOARD PAGE</h1>
+          <p>those are my stats</p>
+          <Link to="/profile">also visit my profile</Link>
+        </div>
+      );
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<App />);
+    </script>
+  </body>
+</html>
