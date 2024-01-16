@@ -4,33 +4,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>deneme</title>
 
-<!-- REACT VE ROUTER İÇİN 4 ADET SCRIPT TAGLERİ -->
+    <!-- Babel script -->
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/@babel/standalone/babel.min.js"
+    ></script>
 
-<!-- Babel script -->
-<script type="text/javascript" src="https://unpkg.com/babel-standalone@6/babel.js"></script>
+    <!-- React scripts -->
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/react-router-dom@5.0.0/umd/react-router-dom.min.js"></script>
 
-<!-- React scripts -->
-<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-<script src="https://unpkg.com/react-router-dom@5.0.0/umd/react-router-dom.min.js"></script>
-
-    <!-- ---------------- -->
   </head>
+  
   <body>
+    
+    <!-- burası jinjadan gelen değeri variable olarak saklıyor -->
+    <script>
+      var jinjaValue = {{ jinja_value|tojson|safe }};
+      console.log(jinjaValue);
+    </script>
+
     <!-- herşey bu rootta renderlenecek. bunun içi boş kalmalı -->
     <div id="root"></div>
 
+    
+    {% raw %} <!-- bu satır jinjaya ait -->
+
+    <!-- reacta ait script -->
     <script type="text/babel">
-
-      {% raw %} /* bu satır jinjaya ait */
-
-      const Link = ReactRouterDOM.Link
-      const  Route = ReactRouterDOM.Route;
+      const Link = ReactRouterDOM.Link,
+        Route = ReactRouterDOM.Route,
+        BrowserRouter = ReactRouterDOM.BrowserRouter;
 
       const App = (props) => (
-        /* ilk div olan kısım dilersen tüm sayfalarda gözükebilecek ortak header kısmı */
-
-        <ReactRouterDOM.HashRouter>
+        <BrowserRouter>
           <div style={{ display: "flex", gap: "2rem" }}>
             <div>
               <Link to="/">HOME PAGE</Link>
@@ -43,28 +57,40 @@
             </div>
           </div>
 
-          <Route path="/" exact component={HomePage} />
-          <Route path="/profile" component={ProfilePage} />
-          <Route path="/dashboard" component={DashboardPage} />
-        </ReactRouterDOM.HashRouter>
+          <Route
+            path="/"
+            exact
+            render={() => <HomePage jinja_value={props.jinja_value} />}
+          />
+          <Route
+            path="/profile"
+            render={() => <ProfilePage jinja_value={props.jinja_value} />}
+          />
+          <Route
+            path="/dashboard"
+            render={() => <DashboardPage jinja_value={props.jinja_value} />}
+          />
+        </BrowserRouter>
       );
 
-      /* sayfa componentleri bunlar. sayfa html içeriği buradaki fonksiyonun returnu şeklinde yazılacak. çok sayıda element varsa hepsi tek bir parent element içinde olmalı yoksa hata verir.*/
       const HomePage = (props) => (
         <div>
           <h1>HOME PAGE</h1>
+
           <li>
             <Link to="/profile">TO PROFILE PAGE</Link>
           </li>
           <li>
             <Link to="/dashboard">TO DASHBOARD PAGE</Link>
           </li>
+          <p>jinja value is: {jinjaValue}</p>
         </div>
       );
 
       const ProfilePage = (props) => (
         <div>
           <h1>PROFILE PAGE</h1>
+          <p>jinja value is: {jinjaValue}</p>
           <p>hello im cankat </p>
           <Link to="/dashboard">look to dashboard</Link>
         </div>
@@ -74,15 +100,16 @@
         <div>
           <h1>DASHBOARD PAGE</h1>
           <p>those are my stats</p>
+          <p>jinja value is: {jinjaValue}</p>
           <Link to="/profile">also visit my profile</Link>
         </div>
       );
 
       const root = ReactDOM.createRoot(document.getElementById("root"));
       root.render(<App />);
-
-      {% endraw %} /* bu satır jinjaya ait */
-      
     </script>
+
+    {% endraw %} <!-- bu satır jinjaya ait -->
   </body>
 </html>
+
