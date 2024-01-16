@@ -2,10 +2,13 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
-@app.route("/")
-def hello_world():
-    return render_template("index.html")
 
+@app.route('/')
+@app.route('/profile')
+@app.route('/dashboard')
+def hello_world():
+    jinja_value = "this is from jinja"
+    return render_template("index.html", jinja_value=jinja_value)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=os.getenv("PORT", default=5000))
+    app.run(debug=True)
