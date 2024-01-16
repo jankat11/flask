@@ -4,21 +4,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>deneme</title>
 
-    <!-- REACT VE ROUTER İÇİN 4 ADET SCRIPT TAGLERİ -->
+<!-- REACT VE ROUTER İÇİN 4 ADET SCRIPT TAGLERİ -->
 
-    <script
-      crossorigin
-      src="https://unpkg.com/react@18/umd/react.development.js"
-    ></script>
-    <script
-      crossorigin
-      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
-    ></script>
-    <script
-      type="text/javascript"
-      src="https://unpkg.com/babel-standalone@6/babel.js"
-    ></script>
-    <script src="https://unpkg.com/react-router-dom@5.0.0/umd/react-router-dom.min.js"></script>
+<!-- Babel script -->
+<script type="text/javascript" src="https://unpkg.com/babel-standalone@6/babel.js"></script>
+
+<!-- React scripts -->
+<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/react-router-dom@5.0.0/umd/react-router-dom.min.js"></script>
 
     <!-- ---------------- -->
   </head>
@@ -27,6 +21,9 @@
     <div id="root"></div>
 
     <script type="text/babel">
+
+      {% raw %} /* bu satır jinjaya ait */
+
       const Link = ReactRouterDOM.Link,
         Route = ReactRouterDOM.Route;
 
@@ -83,6 +80,9 @@
 
       const root = ReactDOM.createRoot(document.getElementById("root"));
       root.render(<App />);
+
+      {% endraw %} /* bu satır jinjaya ait */
+      
     </script>
   </body>
 </html>
